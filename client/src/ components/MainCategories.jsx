@@ -1,10 +1,11 @@
-import { Search } from 'lucide-react'
+// import { Search } from 'lucide-react'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import Search from './Search'
 
 const MainCategories = () => {
     return (
-        <div className='hidden md:flex bg-white md:rounded-lg lg:rounded-full shadow-lg px-4 py-2 items-center justify-center gap-2'>
+        <div className='hidden md:flex bg-white md:rounded-lg lg:rounded-full shadow-lg px-4 py-2 items-center justify-center  gap-2'>
             {/* ------------links ------------ */}
             <div className='flex-1 flex items-center gap-4 text-foreground text-xs overflow-x-auto scrollbar-hide min-w-0 md:text-sm' >
                 <NavLink className='hover:bg-neutral-100 hover:text-neutral-900 rounded-full px-4 py-2 bg-foreground text-background text-center' to={"/posts"}>All Posts</NavLink>
@@ -24,12 +25,17 @@ const MainCategories = () => {
             </div>
             <span className='text-neutral-500'>|</span>
             {/* ------------search ------------ */}
-            <div className='flex items-center border border-neutral-300 rounded-full px-4 py-2 text-xs md:text-sm gap-1'>
+
+
+            <Search/>
+
+
+            {/* <div className='flex items-center border border-neutral-300 rounded-full px-4 py-2 text-xs md:text-sm gap-1'>
                 <span className=''>
                     <Search className='w-5 h-5 text-neutral-500' />
                 </span>
                 <input className='outline-none text-xs md:text-sm' type="text" placeholder='Search' />
-            </div>
+            </div> */}
         </div>
     )
 }
