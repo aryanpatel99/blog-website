@@ -17,8 +17,8 @@ const HomePage = () => {
       <div className='flex items-center justify-between'>
         {/* title */}
         <div>
-          <h1 className='text-2xl md:text-5xl lg:text-6xl font-bold'>Lorem ipsum dolor, sit amet consectetur adipisicing.</h1>
-          <p className='text-neutral-500 mt-5 text-md md:text-lg'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint pariatur autem tempore!</p>
+          <h1 className='text-2xl md:text-5xl lg:text-6xl font-bold'>Where stories, ideas, and projects come together</h1>
+          <p className='text-neutral-500 mt-5 text-md md:text-lg'>A community-driven space to write, explore, and share knowledge across tech, design, and beyond.</p>
         </div>
         {/* write page */}
         <Link to="/write" className='hidden md:block px-4 py-2 rounded-full bg-neutral-900 text-neutral-100'>Write</Link>

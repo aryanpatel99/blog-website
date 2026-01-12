@@ -1,10 +1,11 @@
 const { commentModel } = require("../models/commentModel");
 const { userModel } = require("../models/userModel");
+const { clerkClient } = require("@clerk/express");
 
 async function getPostComments(req, res) {
   const comments = await commentModel
     .find({ post: req.params.postId })
-    .populate("user", "username img")
+    .populate("user", "username img clerkId")
     .sort({ createdAt: -1 });
 
   res.json(comments);
@@ -18,9 +19,25 @@ async function addComment(req, res) {
     return res.status(401).json({ message: "Not Authenticated" });
   }
 
-  const user = await userModel.findOne({
+  let user = await userModel.findOne({
     clerkId: clerkUserId,
   });
+
+  if (!user) {
+    try {
+      const clerkUser = await clerkClient.users.getUser(clerkUserId);
+      user = new userModel({
+        clerkId: clerkUserId,
+        username: clerkUser.username || clerkUser.emailAddresses[0].emailAddress,
+        email: clerkUser.emailAddresses[0].emailAddress,
+        img: clerkUser.imageUrl,
+      });
+      await user.save();
+    } catch (error) {
+      console.error("User sync failed:", error);
+      return res.status(500).json({ message: "Failed to sync user", error: error.message });
+    }
+  }
 
   const newComment = new commentModel({
     ...req.body,
@@ -51,8 +68,6 @@ const sessionClaims = req.auth().sessionClaims;
     sessionClaims?.metaData?.metadata?.role ||
     sessionClaims?.metadata?.metadata?.role ||
     "user";
-
-  console.log("User role:", role); // Debugging line
 
   if (role == "admin") {
     await commentModel.findByIdAndDelete(req.params.id);

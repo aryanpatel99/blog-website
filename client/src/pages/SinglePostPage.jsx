@@ -28,7 +28,6 @@ const SinglePostPage = () => {
   if(error) return <div>Error loading post: {error.message}</div>
 
   if(!data) return <div>No post found</div>
-  console.log(data)
 
   return (
     <div className='flex flex-col gap-4'>
@@ -53,7 +52,6 @@ const SinglePostPage = () => {
         {/* text */}
         <div className='lg:text-lg text-neutral-700 space-y-3 text-justify prose max-w-none overflow-hidden wrap-break-words'>
           <div className='w-full overflow-hidden' dangerouslySetInnerHTML={{__html: data.content}}></div>
-
         </div>
         {/* menu */}
         <div className="px-4 h-max sticky top-8 ml-auto">

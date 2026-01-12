@@ -7,9 +7,6 @@ const Navbar = () => {
     const [open, setOpen] = useState(false)
     const { getToken } = useAuth();
 
-    useEffect(() => {
-        getToken().then((token) => console.log(token))
-    }, [])
     return (
         <div className='border border-muted-foreground w-full mt-5 mb-5 md:h-20 h-16 rounded-2xl flex items-center justify-between px-5'>
             {/* logo */}

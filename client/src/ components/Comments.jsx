@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuth, useUser } from '@clerk/clerk-react'
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 const fetchComments = async (postId) => {
   const res = await axios.get(`${import.meta.env.VITE_API_URL}/comments/${postId}`);
@@ -15,6 +16,7 @@ const fetchComments = async (postId) => {
 const Comments = ({ postId }) => {
   const {user} = useUser()
   const { getToken } = useAuth()
+  const [desc, setDesc] = useState("")
 
   const { isPending, error, data } = useQuery({
     queryKey: ['comments', postId],
@@ -36,6 +38,7 @@ const Comments = ({ postId }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comments', postId] })
+      setDesc("")
     },
 
     onError: (error) => {
@@ -51,22 +54,22 @@ const Comments = ({ postId }) => {
 
   const handleSubmit = (e)=>{
     e.preventDefault()
+    // const formData = new FormData(e.target)
 
-    const formData = new FormData(e.target)
+    // const data = {
+    //   desc:formData.get("desc")
+    // }
 
-    const data = {
-      desc:formData.get("desc")
-    }
-
-    // call the mutation to add the comment
-    mutation.mutate(data)
+    // // call the mutation to add the comment
+    // mutation.mutate(data)
+    mutation.mutate({desc})
   }
 
   return (
     <div className='flex flex-col gap-8 lg:w-3/5'>
       <h1 className='text-xl font-semibold text-neutral-600 underline'>Comments</h1>
       <form onSubmit={handleSubmit} className='flex items-center justify-between gap-2 w-full'>
-        <textarea name="desc" placeholder='Write a comment...' className='w-full px-4 py-2 rounded-xl bg-neutral-200' />
+        <textarea value={desc} onChange={e=>setDesc(e.target.value)} name="desc" placeholder='Write a comment...' className='w-full px-4 py-2 rounded-xl bg-neutral-200' />
         <button type='submit' className='bg-foreground text-background px-2 py-1 rounded-xl'>Send</button>
       </form>
       <div className='flex flex-col gap-2 mt-4'>

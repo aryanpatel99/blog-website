@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useAuth, useUser } from '@clerk/clerk-react'
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
 import 'react-quill-new/dist/quill.snow.css'
 import ReactQuill from 'react-quill-new';
 import axios from 'axios';
@@ -8,8 +10,6 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { IKContext, IKUpload } from 'imagekitio-react';
 import Upload from '../ components/Upload';
-
-
 
 const Write = () => {
   const { isSignedIn, user, isLoaded } = useUser()
@@ -41,7 +41,6 @@ const Write = () => {
       })
     },
     onSuccess: (res) => {
-      console.log(res)
       toast.success("Post created successfully")
       navigate(`/${res.data.slug}`)
     }
@@ -67,8 +66,6 @@ const Write = () => {
       desc: formData.get('desc'),
       content: value
     }
-
-    // console.log(data)
 
     // now we can call the mutation to create a new post
     // this will help in adding the new post to the database
@@ -113,7 +110,7 @@ const Write = () => {
           <ReactQuill theme="snow" value={value} onChange={setValue} className='flex-1 rounded-xl bg-white shadow-lg' readOnly={progress > 0 && progress < 100}  />
         </div>
 
-        <button disabled={mutation.isPending || (progress > 0 && progress < 100)} className='bg-foreground text-background px-4 py-2 rounded-xl font-medium mt-2 w-36 disabled:opacity-50 cursor-not-allowed'>
+        <button disabled={mutation.isPending || (progress > 0 && progress < 100)} className='bg-foreground text-background px-4 py-2 rounded-xl font-medium mt-2 w-36 disabled:opacity-50 disabled:cursor-not-allowed'>
           {mutation.isPending ? "Loading..." : "Post"}
         </button>
         {"Progress:" + progress + "%"}

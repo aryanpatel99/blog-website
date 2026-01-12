@@ -27,8 +27,6 @@ const ClerkWebhook = async(req,res)=>{
         return;
     }
 
-    console.log(evt.data);
-
     if(evt.type === 'user.created'){
         const newUser = new userModel({
             clerkId: evt.data.id,

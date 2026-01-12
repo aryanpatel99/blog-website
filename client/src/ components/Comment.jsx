@@ -12,8 +12,6 @@ const Comment = ({comment, postId}) => {
   const {getToken} = useAuth ()
   const role = user?.publicMetadata?.role|| user?.publicMetadata?.metadata?.role || user?.publicMetadata?.metadata?.metadata?.role || 'user'
 
-  console.log(role)
-
   const queryClient = useQueryClient()
   
     const mutation = useMutation({
@@ -35,9 +33,6 @@ const Comment = ({comment, postId}) => {
       }
     })
 
-  console.log(comment)
-  // console.log((comment.user?.username === user.username || role === 'admin') && "can delete")
-  
   return (
    <div className="p-4 bg-neutral-200 rounded-xl mb-8">
       <div className="flex items-center gap-4">
@@ -49,7 +44,7 @@ const Comment = ({comment, postId}) => {
         <span className="text-sm text-gray-500">
           {format(comment.createdAt)}
         </span>
-        {user && (comment.user?.username === user.username || role === 'admin') && (
+        {user && (comment.user?.clerkId === user.id || comment.user?.username === user.username || role === 'admin') && (
           <span onClick={()=> mutation.mutate()} className="ml-auto text-xs text-red-500 hover:underline hover:text-red-600 cursor-pointer">Delete
           {mutation.isPending && (<span className="text-xs">(Deleting...)</span>
           )}
