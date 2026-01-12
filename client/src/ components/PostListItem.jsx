@@ -15,7 +15,7 @@ const PostListItem = ({ post }) => {
                 <span>Written by</span>
                 <Link className='hover:underline' to={`/posts?author=${post.user?.username}`} >{post.user?.username || "Unknown"}</Link>
                 <span>on</span>
-                <Link className='hover:underline'>{post.category}</Link>
+                <Link to={`/posts?cat=${post.category}`}  className='hover:underline'>{post.category}</Link>
                 <span>{format(post.createdAt)}</span>
             </div>
             <p className='text-xs md:text-sm'>{post.desc}</p>

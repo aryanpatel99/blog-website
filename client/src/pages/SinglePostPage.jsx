@@ -28,6 +28,7 @@ const SinglePostPage = () => {
   if(error) return <div>Error loading post: {error.message}</div>
 
   if(!data) return <div>No post found</div>
+  console.log(data)
 
   return (
     <div className='flex flex-col gap-4'>
@@ -38,7 +39,7 @@ const SinglePostPage = () => {
             <span>Written by</span>
             <Link className='hover:underline hover:text-neutral-600'>{data.user?.username || "Unknown"}</Link>
             <span>on</span>
-            <Link className='hover:underline hover:text-neutral-600'>{data.category}</Link>
+            <Link to={`/posts?cat=${data.category}`} className='hover:underline hover:text-neutral-600'>{data.category}</Link>
             <span>{format(data.createdAt)}</span>
           </div>
           <p className='text-neutral-600 text-md'>{data.desc}</p>
@@ -50,20 +51,12 @@ const SinglePostPage = () => {
       {/* content */}
       <div className='flex flex-col md:flex-row gap-8'>
         {/* text */}
-        <div className='lg:text-lg text-neutral-700 space-y-3 text-justify'>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, repudiandae? Laborum labore architecto sint natus placeat exercitationem consequuntur voluptatum! Quas, quasi sequi quidem autem delectus aspernatur, odio laborum est adipisci magni, cumque ullam sapiente laboriosam eveniet consequatur omnis unde perferendis non totam? Perferendis dicta delectus vero nesciunt corporis illum, corrupti ratione ipsam voluptatem! Totam, nesciunt eaque fugiat dolorem temporibus cumque.</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias cupiditate assumenda architecto nisi eligendi dolorem ut? Eos tenetur perspiciatis cumque officia ipsam. Omnis dolorum unde obcaecati cumque sequi quos qui quas quod quaerat, doloremque, possimus debitis maiores, est aliquid repellat consequuntur ab porro illo veritatis temporibus magnam excepturi. Quaerat, libero.</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos ratione velit a. Quas ipsam laborum veniam totam, deserunt mollitia tempora similique impedit. Voluptas nam sed molestias suscipit rem animi unde quis. Delectus quis non sit eius assumenda, vero error expedita itaque aliquam incidunt recusandae, commodi fuga quae optio sunt aliquid quas, neque nemo fugit dolorum ipsam obcaecati nam fugiat! Incidunt iure asperiores maiores temporibus blanditiis voluptatum eligendi natus aspernatur. Pariatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. At ducimus vero et dolorem? Saepe eos quae perspiciatis atque aliquid, ex sapiente consequatur. Officia laborum id quod illum architecto iure? Optio.</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos ratione velit a. Quas ipsam laborum veniam totam, deserunt mollitia tempora similique impedit. Voluptas nam sed molestias suscipit rem animi unde quis. Delectus quis non sit eius assumenda, vero error expedita itaque aliquam incidunt recusandae, commodi fuga quae optio sunt aliquid quas, neque nemo fugit dolorum ipsam obcaecati nam fugiat! Incidunt iure asperiores maiores temporibus blanditiis voluptatum eligendi natus aspernatur. Pariatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. At ducimus vero et dolorem? Saepe eos quae perspiciatis atque aliquid, ex sapiente consequatur. Officia laborum id quod illum architecto iure? Optio.</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos ratione velit a. Quas ipsam laborum veniam totam, deserunt mollitia tempora similique impedit. Voluptas nam sed molestias suscipit rem animi unde quis. Delectus quis non sit eius assumenda, vero error expedita itaque aliquam incidunt recusandae, commodi fuga quae optio sunt aliquid quas, neque nemo fugit dolorum ipsam obcaecati nam fugiat! Incidunt iure asperiores maiores temporibus blanditiis voluptatum eligendi natus aspernatur. Pariatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. At ducimus vero et dolorem? Saepe eos quae perspiciatis atque aliquid, ex sapiente consequatur. Officia laborum id quod illum architecto iure? Optio.</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos ratione velit a. Quas ipsam laborum veniam totam, deserunt mollitia tempora similique impedit. Voluptas nam sed molestias suscipit rem animi unde quis. Delectus quis non sit eius assumenda, vero error expedita itaque aliquam incidunt recusandae, commodi fuga quae optio sunt aliquid quas, neque nemo fugit dolorum ipsam obcaecati nam fugiat! Incidunt iure asperiores maiores temporibus blanditiis voluptatum eligendi natus aspernatur. Pariatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. At ducimus vero et dolorem? Saepe eos quae perspiciatis atque aliquid, ex sapiente consequatur. Officia laborum id quod illum architecto iure? Optio.</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos ratione velit a. Quas ipsam laborum veniam totam, deserunt mollitia tempora similique impedit. Voluptas nam sed molestias suscipit rem animi unde quis. Delectus quis non sit eius assumenda, vero error expedita itaque aliquam incidunt recusandae, commodi fuga quae optio sunt aliquid quas, neque nemo fugit dolorum ipsam obcaecati nam fugiat! Incidunt iure asperiores maiores temporibus blanditiis voluptatum eligendi natus aspernatur. Pariatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. At ducimus vero et dolorem? Saepe eos quae perspiciatis atque aliquid, ex sapiente consequatur. Officia laborum id quod illum architecto iure? Optio.</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos ratione velit a. Quas ipsam laborum veniam totam, deserunt mollitia tempora similique impedit. Voluptas nam sed molestias suscipit rem animi unde quis. Delectus quis non sit eius assumenda, vero error expedita itaque aliquam incidunt recusandae, commodi fuga quae optio sunt aliquid quas, neque nemo fugit dolorum ipsam obcaecati nam fugiat! Incidunt iure asperiores maiores temporibus blanditiis voluptatum eligendi natus aspernatur. Pariatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. At ducimus vero et dolorem? Saepe eos quae perspiciatis atque aliquid, ex sapiente consequatur. Officia laborum id quod illum architecto iure? Optio.</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos ratione velit a. Quas ipsam laborum veniam totam, deserunt mollitia tempora similique impedit. Voluptas nam sed molestias suscipit rem animi unde quis. Delectus quis non sit eius assumenda, vero error expedita itaque aliquam incidunt recusandae, commodi fuga quae optio sunt aliquid quas, neque nemo fugit dolorum ipsam obcaecati nam fugiat! Incidunt iure asperiores maiores temporibus blanditiis voluptatum eligendi natus aspernatur. Pariatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. At ducimus vero et dolorem? Saepe eos quae perspiciatis atque aliquid, ex sapiente consequatur. Officia laborum id quod illum architecto iure? Optio.</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos ratione velit a. Quas ipsam laborum veniam totam, deserunt mollitia tempora similique impedit. Voluptas nam sed molestias suscipit rem animi unde quis. Delectus quis non sit eius assumenda, vero error expedita itaque aliquam incidunt recusandae, commodi fuga quae optio sunt aliquid quas, neque nemo fugit dolorum ipsam obcaecati nam fugiat! Incidunt iure asperiores maiores temporibus blanditiis voluptatum eligendi natus aspernatur. Pariatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. At ducimus vero et dolorem? Saepe eos quae perspiciatis atque aliquid, ex sapiente consequatur. Officia laborum id quod illum architecto iure? Optio.</p>
+        <div className='lg:text-lg text-neutral-700 space-y-3 text-justify prose max-w-none overflow-hidden wrap-break-words'>
+          <div className='w-full overflow-hidden' dangerouslySetInnerHTML={{__html: data.content}}></div>
+
         </div>
         {/* menu */}
-        <div className="px-4 h-max sticky top-8">
+        <div className="px-4 h-max sticky top-8 ml-auto">
           <h1 className="mb-4 text-sm font-medium">Author</h1>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">

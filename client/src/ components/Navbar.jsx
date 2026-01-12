@@ -1,17 +1,17 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Image } from '@imagekit/react';
 import { SignedIn, SignedOut, SignInButton, useAuth, UserButton } from '@clerk/clerk-react';
 import { MenuIcon, X } from 'lucide-react'
 import { Link } from 'react-router-dom';
 const Navbar = () => {
     const [open, setOpen] = useState(false)
-    const {getToken} = useAuth();
+    const { getToken } = useAuth();
 
-    useEffect(()=>{
-        getToken().then((token)=>console.log(token))
-    },[])
+    useEffect(() => {
+        getToken().then((token) => console.log(token))
+    }, [])
     return (
-        <div className='border border-muted-foreground w-full md:h-20 h-16 rounded-2xl my-5 flex items-center justify-between px-5'>
+        <div className='border border-muted-foreground w-full mt-5 mb-5 md:h-20 h-16 rounded-2xl flex items-center justify-between px-5'>
             {/* logo */}
             <Link to="/" className='text-2xl font-bold flex items-center gap-4'>
                 <Image urlEndpoint={import.meta.env.VITE_IK_URL_ENDPOINT} className='w-8 h-8 rounded-full' loading="lazy" alt="Logo" src="/ISAGI YOICHI.jpeg" />
@@ -29,8 +29,8 @@ const Navbar = () => {
                         <X />
                     </div>
                     <Link to="/" onClick={() => setOpen(false)}>Home</Link>
-                    <Link to="/" onClick={() => setOpen(false)}>Trending</Link>
-                    <Link to="/" onClick={() => setOpen(false)}>Most Populer</Link>
+                    <Link to="/posts?sort=trending" onClick={() => setOpen(false)}>Trending</Link>
+                    <Link to="/posts?sort=popular" onClick={() => setOpen(false)}>Most Popular</Link>
                     <Link to="/" onClick={() => setOpen(false)}>About</Link>
                     <button className='bg-primary text-primary-foreground px-5 py-2 rounded-2xl'>Login 👋</button>
                 </div>
@@ -38,8 +38,8 @@ const Navbar = () => {
             {/* desktop menu */}
             <div className='hidden md:flex items-center gap-5'>
                 <Link to="/">Home</Link>
-                <Link to="/">Trending</Link>
-                <Link to="/">Most Populer</Link>
+                <Link to="/posts?sort=trending">Trending</Link>
+                <Link to="/posts?sort=popular">Most Popular</Link>
                 <Link to="/">About</Link>
                 <SignedOut>
                     <Link to="/login">

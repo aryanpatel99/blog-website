@@ -33,7 +33,7 @@ const FeaturedPost = () => {
                 {/* details */}
                 <div className='flex items-center gap-4'>
                     <h1 className='font-semibold lg:text-lg'>01.</h1>
-                    <Link className='text-neutral-400 text-md hover:underline hover:text-neutral-600'>{post[0].category}</Link>
+                    <Link to={`/posts?cat=${post[0].category}`}  className='text-neutral-400 text-md hover:underline hover:text-neutral-600'>{post[0].category}</Link>
                     <span className='text-neutral-400 text-sm'>{format(post[0].createdAt)}</span>
                 </div>
                 {/* title */}
@@ -47,7 +47,7 @@ const FeaturedPost = () => {
                     <div className='w-2/3'>
                         <div className='flex items-center text-sm gap-4 lg:text-base mb-2'>
                             <h1 className='font-semibold md:text-lg'>02.</h1>
-                            <Link className='text-neutral-400 text-sm hover:underline hover:text-neutral-600'>{post[1].category}</Link>
+                            <Link to={`/posts?cat=${post[1].category}`}  className='text-neutral-400 text-sm hover:underline hover:text-neutral-600'>{post[1].category}</Link>
                             <span className='text-neutral-400 text-sm'>{format(post[1].createdAt)}</span>
                         </div>
                         <Link to={`/${post[1].slug}`} className='text-base sm:text-lg hover:underline'>{post[1].title}</Link>

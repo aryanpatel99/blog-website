@@ -1,12 +1,12 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap'); */
-@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+/* @import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap"); */
 @import "tailwindcss";
 
 body {
   background-color: var(--background);
   width: 100vw;
   overflow-x: hidden;
-  font-family: "Geist Mono", monospace;
+  font-family: 'Inter', sans-serif;
 }
 :root {
   --background: oklch(1 0 0);
@@ -271,3 +271,27 @@ button:focus-visible {
     scrollbar-width: none;
   }
 }
+
+.prose pre {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.prose code {
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+.prose table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
