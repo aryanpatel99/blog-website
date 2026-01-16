@@ -29,9 +29,9 @@ const SideMenu = () => {
     }
   return (
     <div className='px-4 sticky h-max top-8'>
-        <h1 className='mb-4 text-sm text-neutral-500 font-medium'>Search</h1>
+        <h1 className='mb-2 text-sm text-neutral-500 font-medium'>Search</h1>
         <Search/>
-        <h1 className='mb-4 text-sm text-neutral-500 font-medium'>Filter</h1>
+        <h1 className='mb-4 mt-6 text-sm text-neutral-500 font-medium'>Filter</h1>
         <div className='flex flex-col text-sm gap-2'>
             <label htmlFor="" className='flex items-center gap-2 cursor-pointer'>
                 <input onChange={handleFilterChange} type="radio" name="sort" value="newest" className='appearance-none w-4 h-4 border-[1.5px] cursor-pointer rounded-sm checked:bg-foreground'/>

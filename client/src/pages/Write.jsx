@@ -80,7 +80,7 @@ const Write = () => {
       <h1 className='text-xl font-bold'>Create Post</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4 flex-1 mb-6 '>
         <Upload type="image" setProgress={setProgress} setData={setCover} >
-          <button type='button' className='w-max p-2 bg-neutral-200 rounded-2xl text-sm shadow-md overflow-hidden cursor-pointer'>{cover.name ? cover.name : 'Add Cover Image'}</button>
+          <button  type='button' className='w-max p-2 bg-neutral-200 rounded-2xl text-sm shadow-md overflow-hidden cursor-pointer'>{cover.name ? cover.name : 'Add Cover Image'}</button>
         </Upload>
         {/* {cover && <img src={cover.url} alt="cover" className='size-1/3' />} */}
         <input type="text" placeholder='My awesome story' name="title" className='text-4xl font-semibold outline-none bg-transparent' required />

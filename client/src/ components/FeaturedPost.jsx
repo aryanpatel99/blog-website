@@ -33,11 +33,11 @@ const FeaturedPost = () => {
                 {/* details */}
                 <div className='flex items-center gap-4'>
                     <h1 className='font-semibold lg:text-lg'>01.</h1>
-                    <Link to={`/posts?cat=${post[0].category}`}  className='text-neutral-400 text-md hover:underline hover:text-neutral-600'>{post[0].category}</Link>
-                    <span className='text-neutral-400 text-sm'>{format(post[0].createdAt)}</span>
+                    <Link to={`/posts?cat=${post[0].category}`}  className='text-neutral-400 text-sm hover:underline hover:text-neutral-600'>{post[0].category}</Link>
+                    <span className='text-neutral-400 text-sm tracking-tight'>{format(post[0].createdAt)}</span>
                 </div>
                 {/* title */}
-                <Link to={`/${post[0].slug}`} className='font-semibold lg:text-lg hover:underline '>{post[0].title}</Link>
+                <Link to={`/${post[0].slug}`} className='font-semibold text-lg md:text-2xl capitalize hover:underline '>{post[0].title}</Link>
             </div>
             {/* other posts */}
             <div className='w-full lg:w-1/2 flex flex-col gap-4'>
@@ -48,9 +48,9 @@ const FeaturedPost = () => {
                         <div className='flex items-center text-sm gap-4 lg:text-base mb-2'>
                             <h1 className='font-semibold md:text-lg'>02.</h1>
                             <Link to={`/posts?cat=${post[1].category}`}  className='text-neutral-400 text-sm hover:underline hover:text-neutral-600'>{post[1].category}</Link>
-                            <span className='text-neutral-400 text-sm'>{format(post[1].createdAt)}</span>
+                            <span className='text-neutral-400 text-sm tracking-tight'>{format(post[1].createdAt)}</span>
                         </div>
-                        <Link to={`/${post[1].slug}`} className='text-base sm:text-lg hover:underline'>{post[1].title}</Link>
+                        <Link to={`/${post[1].slug}`} className='text-base sm:text-lg font-semibold capitalize hover:underline'>{post[1].title}</Link>
                     </div>
                 </div>}
                 {/* third */}
@@ -60,9 +60,9 @@ const FeaturedPost = () => {
                         <div className='flex items-center text-sm gap-4 lg:text-base mb-2'>
                             <h1 className='font-semibold md:text-lg'>03.</h1>
                             <Link className='text-neutral-400 text-sm hover:underline hover:text-neutral-600'>{post[2].category}</Link>
-                            <span className='text-neutral-400 text-sm'>{format(post[2].createdAt)}</span>
+                            <span className='text-neutral-400 text-sm tracking-tight'>{format(post[2].createdAt)}</span>
                         </div>
-                        <Link to={`/${post[2].slug}`} className='text-base sm:text-lg hover:underline'>{post[2].title}</Link>
+                        <Link to={`/${post[2].slug}`} className='text-base sm:text-lg font-semibold capitalize hover:underline'>{post[2].title}</Link>
                     </div>
                 </div>}
                 {/* fourth */}
@@ -72,9 +72,9 @@ const FeaturedPost = () => {
                         <div className='flex items-center text-sm gap-4 lg:text-base mb-2'>
                             <h1 className='font-semibold md:text-lg'>04.</h1>
                             <Link className='text-neutral-400 text-sm hover:underline hover:text-neutral-600'>{post[3].category}</Link>
-                            <span className='text-neutral-400 text-sm'>{format(post[3].createdAt)}</span>
+                            <span className='text-neutral-400 text-sm tracking-tight'>{format(post[3].createdAt)}</span>
                         </div>
-                        <Link to={`/${post[3].slug}`} className='text-base sm:text-lg hover:underline'>{post[3].title}</Link>
+                        <Link to={`/${post[3].slug}`} className='text-base sm:text-lg font-semibold capitalize hover:underline'>{post[3].title}</Link>
                     </div>
                 </div>}
                 

@@ -16,12 +16,12 @@ const HomePage = () => {
       {/* introduction */}
       <div className='flex items-center justify-between'>
         {/* title */}
-        <div>
-          <h1 className='text-2xl md:text-5xl lg:text-6xl font-bold'>Where stories, ideas, and projects come together</h1>
-          <p className='text-neutral-500 mt-5 text-md md:text-lg'>A community-driven space to write, explore, and share knowledge across tech, design, and beyond.</p>
+        <div className='w-full md:w-2/3'>
+          <h1 className='text-2xl md:text-5xl lg:text-6xl font-bold'>Where stories, ideas, and projects <span className='text-neutral-600 opacity-70'>come together</span></h1>
+          <p className='text-neutral-500 mt-5 text-sm md:text-lg'>A community-driven space to write, explore, and share knowledge across tech, design, and beyond.</p>
         </div>
         {/* write page */}
-        <Link to="/write" className='hidden md:block px-4 py-2 rounded-full bg-neutral-900 text-neutral-100'>Write</Link>
+        <Link to="/write" className='hidden md:block text-center font-semibold px-4 py-2 rounded-full bg-neutral-900 text-neutral-100'>+ Write your story</Link>
 
       </div>
 

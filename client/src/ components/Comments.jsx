@@ -69,8 +69,8 @@ const Comments = ({ postId }) => {
     <div className='flex flex-col gap-8 lg:w-3/5'>
       <h1 className='text-xl font-semibold text-neutral-600 underline'>Comments</h1>
       <form onSubmit={handleSubmit} className='flex items-center justify-between gap-2 w-full'>
-        <textarea value={desc} onChange={e=>setDesc(e.target.value)} name="desc" placeholder='Write a comment...' className='w-full px-4 py-2 rounded-xl bg-neutral-200' />
-        <button type='submit' className='bg-foreground text-background px-2 py-1 rounded-xl'>Send</button>
+        <textarea value={desc} onChange={e=>setDesc(e.target.value)} name="desc" placeholder='Write a comment...' className='w-full px-4 py-2 rounded-xl bg-white border border-gray-300' />
+        <button type='submit' className='bg-foreground text-background px-2 py-1 rounded-md font-medium'>Send</button>
       </form>
       <div className='flex flex-col gap-2 mt-4'>
         {isPending ? <div>Loading...</div> : error ? "Error loading comments" : 

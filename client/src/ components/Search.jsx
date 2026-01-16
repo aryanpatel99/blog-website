@@ -20,7 +20,7 @@ const Search = () => {
 
 
   return (
-   <div className="mb-4 bg-neutral-200 px-2 py-1 rounded-full flex items-center gap-2 text-xs">
+   <div className="bg-neutral-200 px-2 py-1 rounded-full flex items-center gap-2 text-xs">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

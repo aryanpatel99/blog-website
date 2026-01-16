@@ -6,7 +6,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { useSearchParams } from 'react-router-dom'
 
 
-const fetchPosts = async (pageParam,searchParams) => {
+const fetchPosts = async (pageParam, searchParams) => {
   const searchParamsObj = Object.fromEntries([...searchParams])
 
   const res = await axios.get(`${import.meta.env.VITE_API_URL}/posts`, {
@@ -17,7 +17,7 @@ const fetchPosts = async (pageParam,searchParams) => {
 
 const PostList = (pageParam) => {
 
-  const [searchParams,setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   // infinite scroll implementation
 
@@ -31,9 +31,9 @@ const PostList = (pageParam) => {
     status,
   } = useInfiniteQuery({
     queryKey: ['posts', searchParams.toString()],
-    queryFn: ({ pageParam = 1}) =>fetchPosts(pageParam,searchParams),
+    queryFn: ({ pageParam = 1 }) => fetchPosts(pageParam, searchParams),
     initialPageParam: 1,
-    getNextPageParam: (lastPage, pages) => lastPage.hasMore? pages.length + 1 : undefined,
+    getNextPageParam: (lastPage, pages) => lastPage.hasMore ? pages.length + 1 : undefined,
   })
 
   if (status === 'loading') return 'Loading...'
@@ -42,29 +42,31 @@ const PostList = (pageParam) => {
 
   const allPosts = data?.pages?.flatMap(page => page.posts) || [];
 
+  if (allPosts.length === 0) return "No posts found"
+
   return (
     // <div className='flex flex-col gap-4 mb-8'>
     //   {allPosts.map((post) => (
     //     <PostListItem key={post._id} post={post} />
     //   ))}
-    
+
     // </div>
     <InfiniteScroll
-  dataLength={allPosts.length} //This is important field to render the next data
-  next={fetchNextPage}
-  hasMore={!!hasNextPage}
-  loader={<h4>Loading More Posts...</h4>}
-  endMessage={
-    <p style={{ textAlign: 'center' }}>
-      <b>Yay! You have seen it all</b>
-    </p>
-  }
->
-  {allPosts.map((post) => (
+      dataLength={allPosts.length} //This is important field to render the next data
+      next={fetchNextPage}
+      hasMore={!!hasNextPage}
+      loader={<h4>Loading More Posts...</h4>}
+      endMessage={
+        <p style={{ textAlign: 'center' }}>
+          <b>Yay! You have seen it all</b>
+        </p>
+      }
+    >
+      {allPosts.map((post) => (
         <PostListItem key={post._id} post={post} />
       ))}
 
-</InfiniteScroll>
+    </InfiniteScroll>
   )
 }
 

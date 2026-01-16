@@ -12,7 +12,7 @@ const PostListPage = () => {
       <h1 className='mb-8 text-2xl'>{searchParams.get('cat') ? `${searchParams.get('cat').split('-').join(' ')[0].toUpperCase() + searchParams.get('cat').split('-').join(' ').slice(1)} Blog` : searchParams.get('search') ? `Search results for "${searchParams.get('search')}"` : searchParams.get('author') ? `Posts by ${searchParams.get('author')}` : "Recent Posts"}</h1>
       <button onClick={()=> setOpen(!open)} className='md:hidden bg-neutral-900 text-white px-4 py-2 rounded-2xl mb-4 text-sm'>{open ? 'Close' : 'Filter or Search'}</button>
       <div className='flex flex-col-reverse md:flex-row gap-8'>
-        <div className=''>
+        <div className='flex-1'>
           <PostList/>
         </div>       
         <div className={`md:block ${open ? 'block' : 'hidden'}`}>

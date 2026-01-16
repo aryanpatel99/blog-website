@@ -3,7 +3,8 @@
 @import "tailwindcss";
 
 body {
-  background-color: var(--background);
+  /* background-color: var(--background); */
+  @apply bg-slate-50;
   width: 100vw;
   overflow-x: hidden;
   font-family: 'Inter', sans-serif;

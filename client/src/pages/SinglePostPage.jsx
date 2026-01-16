@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { format } from 'timeago.js'
 
-const fetchPost = async (slug)=>{
+const fetchPost = async (slug) => {
   const res = await axios.get(`${import.meta.env.VITE_API_URL}/posts/${slug}`);
   return res.data;
 
@@ -16,18 +16,18 @@ const fetchPost = async (slug)=>{
 
 const SinglePostPage = () => {
 
-  const {slug } = useParams();
+  const { slug } = useParams();
 
-  const {isPending, error, data}= useQuery({
-    queryKey: ['post',slug],
-    queryFn: () =>fetchPost(slug)
+  const { isPending, error, data } = useQuery({
+    queryKey: ['post', slug],
+    queryFn: () => fetchPost(slug)
   })
 
-  if(isPending) return <div>Loading...</div>
+  if (isPending) return <div>Loading...</div>
 
-  if(error) return <div>Error loading post: {error.message}</div>
+  if (error) return <div>Error loading post: {error.message}</div>
 
-  if(!data) return <div>No post found</div>
+  if (!data) return <div>No post found</div>
 
   return (
     <div className='flex flex-col gap-4'>
@@ -41,9 +41,12 @@ const SinglePostPage = () => {
             <Link to={`/posts?cat=${data.category}`} className='hover:underline hover:text-neutral-600'>{data.category}</Link>
             <span>{format(data.createdAt)}</span>
           </div>
+          <div className='border-l-4 border-gray-200 pl-4 my-4'>
           <p className='text-neutral-600 text-md'>{data.desc}</p>
+
+          </div>
         </div>
-        {data.img &&<div className='hidden lg:block w-2/5'>
+        {data.img && <div className='hidden lg:block w-2/5'>
           <Image urlEndpoint={import.meta.env.VITE_IK_URL_ENDPOINT} loading="lazy" alt="Logo" src={data.img} width={600} className='rounded-2xl object-cover' />
         </div>}
       </div>
@@ -51,14 +54,14 @@ const SinglePostPage = () => {
       <div className='flex flex-col md:flex-row gap-8'>
         {/* text */}
         <div className='lg:text-lg text-neutral-700 space-y-3 text-justify prose max-w-none overflow-hidden wrap-break-words'>
-          <div className='w-full overflow-hidden' dangerouslySetInnerHTML={{__html: data.content}}></div>
+          <div className='w-full overflow-hidden' dangerouslySetInnerHTML={{ __html: data.content }}></div>
         </div>
         {/* menu */}
         <div className="px-4 h-max sticky top-8 ml-auto">
           <h1 className="mb-4 text-sm font-medium">Author</h1>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
-              {data.user.img &&<Image
+              {data.user.img && <Image
                 urlEndpoint={import.meta.env.VITE_IK_URL_ENDPOINT}
                 src={data.user.img}
                 className='w-12 h-12 rounded-full object-cover'
@@ -74,43 +77,43 @@ const SinglePostPage = () => {
             <div className="flex gap-2">
               <Link>
                 <Image
-                urlEndpoint={import.meta.env.VITE_IK_URL_ENDPOINT}
-                src="/ISAGI YOICHI.jpeg"
-                className='w-8 h-8 rounded-full object-cover'
-                w="48"
-                h="48"
-                transformation={[{ width: 48, height: 48 }]}
-              />
+                  urlEndpoint={import.meta.env.VITE_IK_URL_ENDPOINT}
+                  src="/ISAGI YOICHI.jpeg"
+                  className='w-8 h-8 rounded-full object-cover'
+                  w="48"
+                  h="48"
+                  transformation={[{ width: 48, height: 48 }]}
+                />
               </Link>
               <Link>
                 <Image
-                urlEndpoint={import.meta.env.VITE_IK_URL_ENDPOINT}
-                src="/ISAGI YOICHI.jpeg"
-                className='w-8 h-8 rounded-full object-cover'
-                w="48"
-                h="48"
-                transformation={[{ width: 48, height: 48 }]}
-              />
+                  urlEndpoint={import.meta.env.VITE_IK_URL_ENDPOINT}
+                  src="/ISAGI YOICHI.jpeg"
+                  className='w-8 h-8 rounded-full object-cover'
+                  w="48"
+                  h="48"
+                  transformation={[{ width: 48, height: 48 }]}
+                />
               </Link>
             </div>
           </div>
-          <PostMenuActions  post={data}/>
+          <PostMenuActions post={data} />
           <h1 className='mt-4 mb-2 text-sm font-medium'>Categories</h1>
           <div className="flex flex-col gap-2 mt-2 text-xs">
-            <Link to={"/"} className='hover:underline hover:text-neutral-600'>All</Link>
-            <Link to={"/"} className='hover:underline hover:text-neutral-600'>Web Design</Link>
-            <Link to={"/"} className='hover:underline hover:text-neutral-600'>Web Development</Link>
-            <Link to={"/"} className='hover:underline hover:text-neutral-600'>UI/UX</Link>
-            <Link to={"/"} className='hover:underline hover:text-neutral-600'>Business</Link>
+            <Link to={"/posts"} className='hover:underline hover:text-neutral-600'>All</Link>
+            <Link to={"/posts?cat=web-design"} className='hover:underline hover:text-neutral-600'>Web Design</Link>
+            <Link to={"/posts?cat=development"} className='hover:underline hover:text-neutral-600'>Web Development</Link>
+            <Link to={"/posts?cat=seo"} className='hover:underline hover:text-neutral-600'>Search Engine</Link>
+            <Link to={"/posts?cat=marketing"} className='hover:underline hover:text-neutral-600'>Marketing</Link>
           </div>
           <h1 className='mt-4 mb-2 text-sm font-medium'>Search</h1>
-          <Search/>
+          <Search />
         </div>
       </div>
-      <Comments postId={data._id}/>
+      <Comments postId={data._id} />
     </div>
 
-    
+
   )
 }
 
