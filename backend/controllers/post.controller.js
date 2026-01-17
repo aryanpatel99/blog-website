@@ -2,13 +2,14 @@ const ImageKit = require("imagekit");
 const { postModel } = require("../models/postModel");
 const { userModel } = require("../models/userModel");
 const { clerkClient } = require("@clerk/express");
+const { main } = require("../lib/gemini");
 
 const getPosts = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 2;
 
-    // we are going to build a dynamic query object based on the query params, this will help us to filter the posts based on category, author, search etc. and prevent multiple if conditions
-  const query = {}
+  // we are going to build a dynamic query object based on the query params, this will help us to filter the posts based on category, author, search etc. and prevent multiple if conditions
+  const query = {};
 
   const cat = req.query.cat;
   const author = req.query.author;
@@ -16,54 +17,54 @@ const getPosts = async (req, res) => {
   const sortQuery = req.query.sort;
   const featured = req.query.featured;
 
-  if(cat){
-    query.category = cat 
+  if (cat) {
+    query.category = cat;
   }
 
-  if(searchQuery){
+  if (searchQuery) {
     // case insensitive search, used regex for that
-    query.title = { $regex: searchQuery, $options: "i" }
+    query.title = { $regex: searchQuery, $options: "i" };
   }
 
-  if(author){
+  if (author) {
     // first we need to find the user with the username
-    const user = await userModel.findOne({username:author}).select("_id")
-    if(!user){
-        // can return empty posts array if no user found
-        return res.status(200).json("No post found") 
+    const user = await userModel.findOne({ username: author }).select("_id");
+    if (!user) {
+      // can return empty posts array if no user found
+      return res.status(200).json("No post found");
     }
 
-    query.user = user._id
+    query.user = user._id;
   }
 
-  let sortObj = {createdAt:-1} // default sort by newest
+  let sortObj = { createdAt: -1 }; // default sort by newest
 
-  if(sortQuery){
-    switch(sortQuery){
-        case "newest":
-            sortObj = {createdAt:-1}
-            break;
-        case "oldest":
-            sortObj = {createdAt:1}
+  if (sortQuery) {
+    switch (sortQuery) {
+      case "newest":
+        sortObj = { createdAt: -1 };
+        break;
+      case "oldest":
+        sortObj = { createdAt: 1 };
 
-            break;
-        case "popular":
-            sortObj = {visit:-1}
+        break;
+      case "popular":
+        sortObj = { visit: -1 };
 
-            break;
-        case "trending":
-            sortObj = {visit:-1}
-            query.createdAt = { $gte: new Date( new Date().getTime() - 7*24*60*60*1000) } // last 7 days
- 
-            break;
+        break;
+      case "trending":
+        sortObj = { visit: -1 };
+        query.createdAt = {
+          $gte: new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000),
+        }; // last 7 days
+
+        break;
     }
-
   }
 
-  if(featured){
-    query.isFeatured = true
+  if (featured) {
+    query.isFeatured = true;
   }
-
 
   const posts = await postModel
     .find(query)
@@ -121,6 +122,10 @@ const createPost = async (req, res) => {
     return res.status(400).json({ message: "Title is required" });
   }
 
+  if (!req.body.img) {
+    return res.status(400).json({ message: "Cover image is required" });
+  }
+
   try {
     // My new Post => my-new-post (but it should be unique)
     // here we are checking for unique slug, if it already exists then we will add a number at the end of it like my-new-post-2, my-new-post-3 etc.
@@ -156,12 +161,12 @@ const deletePost = async (req, res) => {
 
   const sessionClaims = req.auth().sessionClaims;
   // Handle various casing/nesting scenarios from Clerk JWT templates
-  const role = 
-    sessionClaims?.role || 
-    sessionClaims?.metadata?.role || 
-    sessionClaims?.metaData?.role || 
+  const role =
+    sessionClaims?.role ||
+    sessionClaims?.metadata?.role ||
+    sessionClaims?.metaData?.role ||
     sessionClaims?.metaData?.metadata?.role ||
-    sessionClaims?.metadata?.metadata?.role || 
+    sessionClaims?.metadata?.metadata?.role ||
     "user";
 
   if (role === "admin") {
@@ -218,13 +223,13 @@ const featurePost = async (req, res) => {
 
   // Check if user is admin
   const sessionClaims = req.auth().sessionClaims;
-  
+
   // Handle various casing/nesting scenarios from Clerk JWT templates
-  const role = 
-    sessionClaims?.role || 
-    sessionClaims?.metadata?.role || 
+  const role =
+    sessionClaims?.role ||
+    sessionClaims?.metadata?.role ||
     sessionClaims?.metaData?.metadata?.role ||
-    sessionClaims?.metadata?.metadata?.role || 
+    sessionClaims?.metadata?.metadata?.role ||
     "user";
 
   if (role !== "admin") {
@@ -242,10 +247,34 @@ const featurePost = async (req, res) => {
   const updatedPost = await postModel.findByIdAndUpdate(
     postId,
     { isFeatured: !isFeatured },
-    { new: true }
+    { new: true },
   );
 
   res.status(200).json(updatedPost);
+};
+
+const generateContent = async (req, res) => {
+  try {
+    const clerkUserId = req.auth().userId;
+
+    if (!clerkUserId) {
+      return res.status(401).json({ message: "Not Authenticated" });
+    }
+
+    const { prompt } = req.body;
+    const response = await main(
+      prompt + "Generate a blog content for this topic in simple text format",
+    );
+    if (!response) {
+      return res.status(400).json({ message: "Failed to generate content" });
+    }
+    res.status(200).json({ success: true, response });
+  } catch (error) {
+    console.error("Error generating content:", error);
+    res
+      .status(500)
+      .json({ message: "Failed to generate content", error: error.message });
+  }
 };
 
 module.exports = {
@@ -255,4 +284,5 @@ module.exports = {
   deletePost,
   uploadAuth,
   featurePost,
+  generateContent,
 };

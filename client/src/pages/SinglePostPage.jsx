@@ -46,18 +46,18 @@ const SinglePostPage = () => {
 
           </div>
         </div>
-        {data.img && <div className='hidden lg:block w-2/5'>
+        {data.img && <div className='hidden lg:block w-2/5 border border-gray-200 rounded-2xl overflow-hidden'>
           <Image urlEndpoint={import.meta.env.VITE_IK_URL_ENDPOINT} loading="lazy" alt="Logo" src={data.img} width={600} className='rounded-2xl object-cover' />
         </div>}
       </div>
       {/* content */}
-      <div className='flex flex-col md:flex-row gap-8'>
+      <div className='flex flex-col lg:flex-row gap-8'>
         {/* text */}
-        <div className='lg:text-lg text-neutral-700 space-y-3 text-justify prose max-w-none overflow-hidden wrap-break-words'>
+        <div className=' lg:w-3/5 lg:text-lg text-neutral-700 space-y-4 text-justify prose max-w-none wrap-break-word'>
           <div className='w-full overflow-hidden' dangerouslySetInnerHTML={{ __html: data.content }}></div>
         </div>
         {/* menu */}
-        <div className="px-4 h-max sticky top-8 ml-auto">
+        <div className="lg:w-2/5 px-4 h-max sticky top-8 self-start">
           <h1 className="mb-4 text-sm font-medium">Author</h1>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
